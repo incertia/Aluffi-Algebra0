@@ -25,16 +25,16 @@ theorem r1_equiv : Equivalence r1 := by
     intro x y h
     obtain ⟨n, h⟩ := h
     use -n
-    rewrite [Int.cast_neg, ← h]
-    norm_num
+    rewrite [Int.cast_neg, ← h, neg_sub]
+    rfl
   case trans =>
     intro x y z h1 h2
     obtain ⟨n₁, h1⟩ := h1
     obtain ⟨n₂, h2⟩ := h2
     use n₁ + n₂
     rewrite [Int.cast_add]
-    rewrite [← h1, ← h2]
-    norm_num
+    rewrite [← h1, ← h2, sub_add_sub_cancel']
+    rfl
 
 -- we then show r2 is a relation
 theorem r2_equiv : Equivalence r2 := by
