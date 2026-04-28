@@ -1,0 +1,14 @@
+name = "algebra-0"
+version = "0.1.0"
+defaultTargets = ["Algebra0"]
+
+[leanOptions]
+pp.deepTerms = true
+pp.proofs = true
+
+[[lean_lib]]
+name = "Algebra0"
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
