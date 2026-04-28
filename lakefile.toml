@@ -10,5 +10,5 @@ pp.proofs = true
 name = "Algebra0"
 
 [[require]]
-name = "mathlib"
+name = "mathlib4"
 scope = "leanprover-community"
