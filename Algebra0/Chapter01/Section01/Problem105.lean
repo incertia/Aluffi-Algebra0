@@ -30,4 +30,5 @@ theorem not_equiv_nearby
     exact h
   case trans =>
     use 0, 1, 2
+    -- secretly relies on linarith
     norm_num
