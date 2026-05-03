@@ -5,22 +5,11 @@ partition of S: that is, its elements are nonempty, disjoint, and their union is
 $S$.
 -/
 
+import Algebra0.Defs.Part
+
 import Mathlib.Init
 import Mathlib.Data.Set.Basic
-import Mathlib.Order.SetNotation
 import Mathlib.Tactic
-
--- we define what it means to be a partition,
--- Part is already defined somewhere in Mathlib
-@[ext]
-structure MyPart α where
-  part: Set (Set (α))
-  -- the empty set cannot be part of a partition
-  no_empty : ∅ ∉ part
-  -- unequal partitions must be disjoint
-  disjoint : ∀s t, s ≠ t ∧ s ∈ part ∧ t ∈ part → s ∩ t = ∅
-  -- the union must be the entire set
-  full_union : ⋃₀part = Set.univ
 
 -- hepler function to take equivalence classes
 def equiv_classes (_ : Equivalence (f : α → α → Prop)) : Set (Set α) :=
