@@ -55,7 +55,7 @@ theorem epi_iff_surj
       unfold prop_fn
       constructor
       · intro _
-        use a
+        exists a
       · intro _
         trivial
 

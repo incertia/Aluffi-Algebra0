@@ -32,13 +32,11 @@ lemma rep_set (part: MyPart α): ∀a, ∃!s, a ∈ s ∧ s ∈ part.part := by
     have not_disjoint : s ∩ t ≠ ∅ := by
       rewrite [← Set.nonempty_iff_ne_empty]
       unfold Set.Nonempty
-      use a
-      rewrite [Set.mem_inter_iff]
-      exact ⟨aₛ, aₜ⟩
+      exists a
 
     exact not_disjoint disjoint
 
-  use s
+  exists s
   refine ⟨?exist, ?unique⟩
   case exist =>
     -- we can use dsimp to perform the beta reduction
@@ -107,7 +105,7 @@ theorem part_eq_equiv_from_part (part: MyPart α)
       exact no_empty s_elem
     rewrite [← Set.nonempty_iff_ne_empty] at s_nonempty
     obtain ⟨a, aₛ⟩ := s_nonempty
-    use a
+    exists a
 
     -- a ∈ Set.univ ∧ setOf (derive_f_from_part part a) = s
     -- we can refine the first part out of the goal
@@ -122,8 +120,8 @@ theorem part_eq_equiv_from_part (part: MyPart α)
     ext b
     refine ⟨?l, ?r⟩
     case l =>
-      -- b ∈ {b | Classical.choose (rep_set part a) = Classical.choose
-      --    (rep_set part b)} → b ∈ s
+      -- b ∈ {b | Classical.choose (rep_set part a) =
+      --          Classical.choose (rep_set part b)} → b ∈ s
       intro b_elem
 
       -- simplify b_elem

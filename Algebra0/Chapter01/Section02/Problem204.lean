@@ -17,12 +17,12 @@ theorem setiso_equiv
     ∧ (∀α β γ, SetIso α β ∧ SetIso β γ → SetIso α γ) := by
   refine ⟨?_, ?_, ?_⟩
   · intro α
-    use id
+    exists id
     exact Function.bijective_id
   · intro α β iso
     obtain ⟨f, bij⟩ := iso
-    use Function.surjInv bij.right
+    exists Function.surjInv bij.right
     exact inv_bijection_bijection bij
   · intro α β γ ⟨⟨f, bij1⟩, ⟨g, bij2⟩⟩
-    use g ∘ f
+    exists g ∘ f
     exact comp_bijection_bijection bij1 bij2

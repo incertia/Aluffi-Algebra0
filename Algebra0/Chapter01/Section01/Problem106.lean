@@ -18,20 +18,20 @@ theorem r1_equiv : Equivalence r1 := by
   refine ⟨?refl, ?symm, ?trans⟩
   case refl =>
     intro x
-    use 0
+    exists 0
     rewrite [sub_self, Int.cast_zero]
     rfl
   case symm =>
     intro x y h
     obtain ⟨n, h⟩ := h
-    use -n
+    exists -n
     rewrite [Int.cast_neg, ← h, neg_sub]
     rfl
   case trans =>
     intro x y z h1 h2
     obtain ⟨n₁, h1⟩ := h1
     obtain ⟨n₂, h2⟩ := h2
-    use n₁ + n₂
+    exists n₁ + n₂
     rewrite [Int.cast_add]
     rewrite [← h1, ← h2, sub_add_sub_cancel']
     rfl

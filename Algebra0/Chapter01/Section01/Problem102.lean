@@ -23,7 +23,7 @@ lemma rep (e: Equivalence f)
     : ∀s, s ∈ equiv_classes e → ∃a ∈ s, setOf (f a) = s := by
   intro s s_elem
   obtain ⟨a, a_elem, a_orbit⟩ := s_elem
-  use a
+  exists a
   nth_rewrite 1 [← a_orbit]
   -- we can use refine in place of constructor (exact a) (exact b)
   refine ⟨e.refl a, a_orbit⟩
@@ -101,12 +101,12 @@ def equiv_class_part (e : Equivalence (f : α → α → Prop))
   have a_in_union : ∀a, a ∈ ⋃₀equiv_classes e := by
     intro a
     rewrite [Set.mem_sUnion]
-    use setOf (f a)
+    exists setOf (f a)
     unfold equiv_classes
     rewrite [Set.mem_setOf_eq]
 
     -- (∃ a_1 ∈ Set.univ, setOf (f a_1) = setOf (f a)) ∧ a ∈ setOf (f a)
-    exact ⟨(by use a; exact ⟨Set.mem_univ a, rfl⟩), a_in_class a⟩
+    exact ⟨(by exists a), a_in_class a⟩
 
   -- ⋃₀classes = Set.univ
   have unions_into_set : ⋃₀equiv_classes e = Set.univ := by
@@ -124,13 +124,13 @@ def equiv_class_part (e : Equivalence (f : α → α → Prop))
     case r =>
       -- a ∈ Set.univ → ∃ t ∈ {x | ∃ a ∈ Set.univ, setOf (f a) = x}, a ∈ t
       intro _
-      use setOf (f a)
+      exists setOf (f a)
       rewrite [Set.mem_setOf_eq]
 
       -- (∃ a_1 ∈ Set.univ, setOf (f a_1) = setOf (f a)) ∧ a ∈ setOf (f a)
       -- the lhs here is pretty obviously satisfied by a, and the rhs is
       -- something we have proven
-      exact ⟨(by use a), a_in_class a⟩
+      exact ⟨(by exists a), a_in_class a⟩
 
   let partition : MyPart α := {
     part := equiv_classes e,

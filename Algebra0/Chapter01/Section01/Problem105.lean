@@ -6,9 +6,6 @@ partition on the set?
 
 import Mathlib.Algebra.Order.AbsoluteValue.Basic
 
--- without importing this norm_num fails to solve |1 - 2| ≤ 1
-import Mathlib.Tactic.Linarith
-
 -- we claim that the following relation is reflexive and symmetric but not
 -- transitive
 def nearby (x: ℤ) (y: ℤ) : Prop := |x - y| ≤ 1
@@ -29,6 +26,4 @@ theorem not_equiv_nearby
     rewrite [abs_sub_comm] at h
     exact h
   case trans =>
-    use 0, 1, 2
-    -- secretly relies on linarith
-    norm_num
+    exists 0, 1, 2

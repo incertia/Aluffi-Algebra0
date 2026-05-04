@@ -22,7 +22,7 @@ theorem inv_bijection_bijection
   -- Function.Surjective (Function.surjInv bij.right)
   · unfold Function.Surjective
     intro a
-    use f a
+    exists f a
 
     -- Function.surjInv bij.right (f a) = a
     -- if the goal is to prove b = a, it suffices to prove f b = f a as long as
@@ -42,7 +42,7 @@ theorem comp_bijection_bijection
     exact bij_f.left (bij_g.left h)
   · unfold Function.Surjective
     intro c
-    use Function.surjInv bij_f.right (Function.surjInv bij_g.right c)
+    exists Function.surjInv bij_f.right (Function.surjInv bij_g.right c)
 
     -- (g ∘ f) (Function.surjInv bij_f.right (Function.surjInv bij_g.right c)) = c
     show g (f (Function.surjInv bij_f.right (Function.surjInv bij_g.right c))) = c

@@ -14,13 +14,13 @@ theorem rinv_iff_surj (f : α → β)
     obtain ⟨g, hg⟩ := h
     unfold Function.Surjective
     intro b
-    use g b
+    exists g b
     --unfold Function.RightInverse Function.LeftInverse at hg
     exact hg b
   · intro h
     unfold Function.Surjective at h
     let g (b : β) : α := Classical.choose (h b)
-    use g
+    exists g
     --unfold Function.RightInverse Function.LeftInverse
     intro b
     exact Classical.choose_spec (h b)
