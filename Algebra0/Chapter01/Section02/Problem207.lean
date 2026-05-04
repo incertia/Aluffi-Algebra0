@@ -3,8 +3,9 @@ Let $f : A \to B$ be any function. Prove that the graph $\Gamma_f$ of $f$ is
 isomorphic to $A$.
 -/
 
-import Mathlib.Logic.Equiv.Defs
-import Mathlib.Tactic
+import Mathlib.Data.Subtype
+import Mathlib.Logic.Function.Defs
+import Mathlib.Tactic.DefEqTransformations
 
 def graph (f : α → β) : Type := {p // ∃a, (a, f a) = p}
 theorem a_iso_graph (f : α → β) : ∃φ : α → graph f, Function.Bijective φ := by
@@ -31,10 +32,12 @@ theorem a_iso_graph (f : α → β) : ∃φ : α → graph f, Function.Bijective
   · unfold Function.Surjective
     beta_reduce
     intro ⟨x, ⟨a, h⟩⟩
+
+    -- for various reasons it's easier if we use the a from the ∃ clause
     exists a
 
-    -- we cannot use ext so we directly apply Subtype.ext
-    apply Subtype.ext
-    -- use push_cast to simplify the cast expressions
+    -- much like earlier this unfold is very important
+    unfold graph
+    ext1
     push_cast
     exact h
