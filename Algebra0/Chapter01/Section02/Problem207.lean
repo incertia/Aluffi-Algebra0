@@ -7,19 +7,16 @@ import Mathlib.Data.Subtype
 import Mathlib.Logic.Function.Defs
 import Mathlib.Tactic.DefEqTransformations
 
-def graph (f : α → β) : Type := {p // ∃a, (a, f a) = p}
-theorem a_iso_graph (f : α → β) : ∃φ : α → graph f, Function.Bijective φ := by
+-- use abbrev so that the type is transparent to lean
+abbrev graph (f : α → β) : Type := {p // ∃a, (a, f a) = p}
+theorem a_iso_graph (f : α → β)
+    : ∃φ : α → graph f, Function.Bijective φ := by
   exists fun a => ⟨(a, f a), by exists a⟩
   constructor
   · unfold Function.Injective
     beta_reduce
     intro a b h
 
-    -- this unfold graph is VERY IMPORTANT
-    -- lean cannot see that graph f is a subtype unless you do this unfold,
-    -- which changes nothing in the infoview so you think it is not actually
-    -- doing anything
-    unfold graph at h
     -- rewrite rules for (a, b).1 = a are hidden away in Lean.Omega for some
     -- reason
     rewrite [ Subtype.mk_eq_mk
@@ -36,8 +33,8 @@ theorem a_iso_graph (f : α → β) : ∃φ : α → graph f, Function.Bijective
     -- for various reasons it's easier if we use the a from the ∃ clause
     exists a
 
-    -- much like earlier this unfold is very important
-    unfold graph
+    -- ⟨(a, f a), Exists.intro a (Eq.refl (a, f a))⟩ = ⟨x, Exists.intro a h⟩
+    -- use extensionality, but only once
     ext1
     push_cast
     exact h
