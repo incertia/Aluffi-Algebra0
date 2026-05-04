@@ -14,12 +14,15 @@ theorem a_iso_graph (f : α → β) : ∃φ : α → graph f, Function.Bijective
     beta_reduce
     intro a b h
 
-    -- use injection to split out (a, f a) = (b, f b)
-    injection h with h
-
+    -- this unfold graph is VERY IMPORTANT
+    -- lean cannot see that graph f is a subtype unless you do this unfold,
+    -- which changes nothing in the infoview so you think it is not actually
+    -- doing anything
+    unfold graph at h
     -- rewrite rules for (a, b).1 = a are hidden away in Lean.Omega for some
     -- reason
-    rewrite [ Prod.ext_iff
+    rewrite [ Subtype.mk_eq_mk
+            , Prod.ext_iff
             , Lean.Omega.Prod.fst_mk
             , Lean.Omega.Prod.fst_mk
             , Lean.Omega.Prod.snd_mk
