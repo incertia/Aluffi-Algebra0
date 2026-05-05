@@ -9,8 +9,8 @@ import Mathlib.Tactic.DefEqTransformations
 
 -- use abbrev so that the type is transparent to lean
 abbrev graph (f : α → β) : Type := {p // ∃a, (a, f a) = p}
-theorem a_iso_graph (f : α → β)
-    : ∃φ : α → graph f, Function.Bijective φ := by
+theorem a_iso_graph (f : α → β) : ∃φ : α → graph f, Function.Bijective φ
+:= by
   exists fun a => ⟨(a, f a), by exists a⟩
   constructor
   · unfold Function.Injective
